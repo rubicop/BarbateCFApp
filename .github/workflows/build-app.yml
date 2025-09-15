@@ -40,7 +40,7 @@ jobs:
       - name: Compilar App (macOS)
         if: matrix.os == 'macos-latest'
         run: |
-          pyinstaller --noconfirm --onefile --windowed --name "BarbateCFApp" \
+          pyinstaller --noconfirm --windowed --name "BarbateCFApp" \
           --add-data "data:data" \
           --add-data "icons:icons" \
           --add-data "club_logo.png:." \
@@ -58,7 +58,7 @@ jobs:
           path: dist/BarbateCFApp.exe
 
       - name: Subir artefacto (macOS)
-        if: matrix.os == 'macOS'
+        if: matrix.os == 'macos-latest'
         uses: actions/upload-artifact@v4
         with:
           name: BarbateCFApp-macOS
