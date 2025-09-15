@@ -7,12 +7,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
-<<<<<<< Updated upstream
     
-=======
-
-    # Le decimos en qué "cocina" trabajar
->>>>>>> Stashed changes
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -29,7 +24,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install pyinstaller tkcalendar reportlab pillow pymupdf
 
-<<<<<<< Updated upstream
       - name: Compilar App (Windows)
         if: matrix.os == 'windows-latest'
         run: |
@@ -55,30 +49,16 @@ jobs:
           --add-data "arialbd.ttf:." \
           --add-data "logo.ico:." \
           main.py
-=======
-      # 4. Compilar la aplicación usando el archivo .spec
-      - name: Compilar con PyInstaller
-        # --- CORRECCIÓN: Añadido --noconfirm y --clean ---
-        run: pyinstaller --noconfirm --clean BarbateCFApp.spec
->>>>>>> Stashed changes
 
       - name: Subir artefacto (Windows)
-<<<<<<< Updated upstream
         if: matrix.os == 'windows-latest'
-=======
-        if: runner.os == 'Windows'
->>>>>>> Stashed changes
         uses: actions/upload-artifact@v4
         with:
           name: BarbateCFApp-Windows
           path: dist/BarbateCFApp.exe
 
       - name: Subir artefacto (macOS)
-<<<<<<< Updated upstream
         if: matrix.os == 'macOS'
-=======
-        if: runner.os == 'macOS'
->>>>>>> Stashed changes
         uses: actions/upload-artifact@v4
         with:
           name: BarbateCFApp-macOS
