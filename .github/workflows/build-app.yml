@@ -1,46 +1,32 @@
-# Nombre de la acción que verás en GitHub
 name: Compilar Aplicación para Windows y Mac
 
-# Esto le dice al robot que se active cada vez que subas tu código
 on: [push]
 
 jobs:
   build-apps:
     strategy:
       matrix:
-        # Aquí definimos las "cocinas" que usará el robot
         os: [macos-latest, windows-latest]
-<<<<<<< Updated upstream
     
-=======
-
->>>>>>> Stashed changes
-    # Le decimos en qué "cocina" trabajar
     runs-on: ${{ matrix.os }}
 
     steps:
-      # 1. Descargar tu código en la máquina virtual
       - name: Descargar el código
         uses: actions/checkout@v4
 
-      # 2. Configurar Python
       - name: Configurar Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      # 3. Instalar todas las librerías necesarias
       - name: Instalar dependencias
         run: |
           python -m pip install --upgrade pip
           pip install pyinstaller tkcalendar reportlab pillow pymupdf
 
-      # 4. Compilar la aplicación usando el archivo .spec
       - name: Compilar con PyInstaller
-        # --- CORRECCIÓN: Añadido --noconfirm y --clean ---
         run: pyinstaller --noconfirm --clean BarbateCFApp.spec
 
-      # 5. Empaquetar la aplicación final para poder descargarla
       - name: Subir artefacto (Windows)
         if: runner.os == 'Windows'
         uses: actions/upload-artifact@v4
