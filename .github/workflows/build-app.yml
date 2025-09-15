@@ -17,11 +17,11 @@ jobs:
     steps:
       # 1. Descargar tu código en la máquina virtual
       - name: Descargar el código
-        uses: actions/checkout@v4 # Actualizado a v4
+        uses: actions/checkout@v4
 
       # 2. Configurar Python
       - name: Configurar Python
-        uses: actions/setup-python@v5 # Actualizado a v5
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
@@ -33,19 +33,20 @@ jobs:
 
       # 4. Compilar la aplicación usando el archivo .spec
       - name: Compilar con PyInstaller
-        run: pyinstaller BarbateCFApp.spec
+        # --- CORRECCIÓN: Añadido --noconfirm y --clean ---
+        run: pyinstaller --noconfirm --clean BarbateCFApp.spec
 
       # 5. Empaquetar la aplicación final para poder descargarla
       - name: Subir artefacto (Windows)
         if: runner.os == 'Windows'
-        uses: actions/upload-artifact@v4 # CORREGIDO: v3 -> v4
+        uses: actions/upload-artifact@v4
         with:
           name: BarbateCFApp-Windows
           path: dist/BarbateCFApp.exe
 
       - name: Subir artefacto (macOS)
         if: runner.os == 'macOS'
-        uses: actions/upload-artifact@v4 # CORREGIDO: v3 -> v4
+        uses: actions/upload-artifact@v3
         with:
           name: BarbateCFApp-macOS
           path: dist/BarbateCFApp.app
