@@ -24,18 +24,41 @@ jobs:
           python -m pip install --upgrade pip
           pip install pyinstaller tkcalendar reportlab pillow pymupdf
 
-      - name: Compilar con PyInstaller
-        run: pyinstaller --noconfirm --clean BarbateCFApp.spec
+      - name: Compilar App (Windows)
+        if: matrix.os == 'windows-latest'
+        run: |
+          pyinstaller --noconfirm --onefile --windowed --name "BarbateCFApp" ^
+          --add-data "data;data" ^
+          --add-data "icons;icons" ^
+          --add-data "club_logo.png;." ^
+          --add-data "player_red_base.png;." ^
+          --add-data "player_yellow_base.png;." ^
+          --add-data "arialbd.ttf;." ^
+          --add-data "logo.ico;." ^
+          main.py
+      
+      - name: Compilar App (macOS)
+        if: matrix.os == 'macos-latest'
+        run: |
+          pyinstaller --noconfirm --onefile --windowed --name "BarbateCFApp" \
+          --add-data "data:data" \
+          --add-data "icons:icons" \
+          --add-data "club_logo.png:." \
+          --add-data "player_red_base.png:." \
+          --add-data "player_yellow_base.png:." \
+          --add-data "arialbd.ttf:." \
+          --add-data "logo.ico:." \
+          main.py
 
       - name: Subir artefacto (Windows)
-        if: runner.os == 'Windows'
+        if: matrix.os == 'windows-latest'
         uses: actions/upload-artifact@v4
         with:
           name: BarbateCFApp-Windows
           path: dist/BarbateCFApp.exe
 
       - name: Subir artefacto (macOS)
-        if: runner.os == 'macOS'
+        if: matrix.os == 'macOS'
         uses: actions/upload-artifact@v4
         with:
           name: BarbateCFApp-macOS
