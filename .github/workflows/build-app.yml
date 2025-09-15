@@ -11,19 +11,19 @@ jobs:
         # Aquí definimos las "cocinas" que usará el robot
         os: [macos-latest, windows-latest]
     
-    # Le decimos en qué "cocina" trabajar (se ejecutará una vez para Mac y otra para Windows)
+    # Le decimos en qué "cocina" trabajar
     runs-on: ${{ matrix.os }}
 
     steps:
       # 1. Descargar tu código en la máquina virtual
       - name: Descargar el código
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4 # Actualizado a v4
 
       # 2. Configurar Python
       - name: Configurar Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5 # Actualizado a v5
         with:
-          python-version: '3.11' # O la versión de Python que estés usando
+          python-version: '3.11'
 
       # 3. Instalar todas las librerías necesarias
       - name: Instalar dependencias
@@ -38,14 +38,14 @@ jobs:
       # 5. Empaquetar la aplicación final para poder descargarla
       - name: Subir artefacto (Windows)
         if: runner.os == 'Windows'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4 # CORREGIDO: v3 -> v4
         with:
           name: BarbateCFApp-Windows
           path: dist/BarbateCFApp.exe
 
       - name: Subir artefacto (macOS)
         if: runner.os == 'macOS'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4 # CORREGIDO: v3 -> v4
         with:
           name: BarbateCFApp-macOS
           path: dist/BarbateCFApp.app
