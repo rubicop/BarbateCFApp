@@ -10,7 +10,11 @@ jobs:
       matrix:
         # Aquí definimos las "cocinas" que usará el robot
         os: [macos-latest, windows-latest]
+<<<<<<< Updated upstream
     
+=======
+
+>>>>>>> Stashed changes
     # Le decimos en qué "cocina" trabajar
     runs-on: ${{ matrix.os }}
 
@@ -46,7 +50,7 @@ jobs:
 
       - name: Subir artefacto (macOS)
         if: runner.os == 'macOS'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: BarbateCFApp-macOS
           path: dist/BarbateCFApp.app
